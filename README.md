@@ -9,9 +9,7 @@ Another reference\
 John Hopkins University & Medicine ► https://coronavirus.jhu.edu/map.html \
 World Health Organization ► https://www.who.int/redirect-pages/page/novel-coronavirus-(covid-19)-situation-dashboard
 
-<iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="315" src="https://youtube.com/embed/P60i4P4E_e0" width="560">
-
-🎬 Full ► https://youtu.be/P60i4P4E_e0 
+[![Full Tutorial](https://1.bp.blogspot.com/-k5E7E0I1wQM/XnA7A8fAX-I/AAAAAAAAA8E/FCBZx-vOJ-EByB1bH7vrD1c2vdDmVy7eACLcBGAsYHQ/s1600/Covid19.png)](https://youtu.be/P60i4P4E_e0 "Watch This")
 
 📱 APK file
 Link ► http://gg.gg/covid19APK
