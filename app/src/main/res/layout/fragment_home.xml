@@ -72,6 +72,16 @@
             android:textColor="@color/colorTotalRecovered"
             tools:text="75938" />
 
+        <TextView
+            android:id="@+id/tvLastUpdated"
+            style="@style/LabelFontStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            tools:text="Last Updated\n Mon, 23 Mar 2020 1:20:30 PM" />
+
     </LinearLayout>
 
     <ProgressBar

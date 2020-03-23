@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="16dp"
-    android:paddingTop="8dp"
-    android:paddingRight="16dp">
+    android:padding="16dp"
+    android:background="@color/colorPrimary">
 
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorTotalConfirmed"
-            android:textSize="20sp"
+            android:textSize="24sp"
             tools:text="82343" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:textColor="#fff"
-            android:textSize="20sp"
+            android:textSize="24sp"
             tools:text="China" />
     </LinearLayout>
 </RelativeLayout>
