@@ -9,12 +9,14 @@
 
 
     <LinearLayout
+        android:layout_margin="16dp"
         android:id="@+id/linearLayoutCountryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
 
         <TextView
+            android:textAlignment="center"
             android:id="@+id/tvDetailCountryName"
             style="@style/TotalFontStyle"
             android:layout_width="wrap_content"
