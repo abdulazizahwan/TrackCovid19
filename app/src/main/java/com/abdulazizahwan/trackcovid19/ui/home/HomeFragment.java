@@ -42,6 +42,9 @@ public class HomeFragment extends Fragment {
         tvLastUpdated = root.findViewById(R.id.tvLastUpdated);
         progressBar = root.findViewById(R.id.progress_circular_home);
 
+        // Action Bar title
+        getActivity().setTitle("Overview");
+
         // call Volley
         getData();
 
