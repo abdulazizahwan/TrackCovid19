@@ -33,7 +33,7 @@ public class CovidCountryDetail extends AppCompatActivity {
 
         // set text view
         tvDetailCountryName.setText(covidCountry.getmCovidCountry());
-        tvDetailTotalCases.setText(covidCountry.getmCases());
+        tvDetailTotalCases.setText(Integer.toString(covidCountry.getmCases()));
         tvDetailTodayCases.setText(covidCountry.getmTodayCases());
         tvDetailTotalDeaths.setText(covidCountry.getmDeaths());
         tvDetailTodayDeaths.setText(covidCountry.getmTodayDeaths());

@@ -43,7 +43,7 @@ public class CovidCountryAdapter extends RecyclerView.Adapter<CovidCountryAdapte
     @Override
     public void onBindViewHolder(@NonNull CovidCountryAdapter.ViewHolder holder, int position) {
         CovidCountry covidCountry = covidCountries.get(position);
-        holder.tvTotalCases.setText(covidCountry.getmCases());
+        holder.tvTotalCases.setText(Integer.toString(covidCountry.getmCases()));
         holder.tvCountryName.setText(covidCountry.getmCovidCountry());
 
         // Glide

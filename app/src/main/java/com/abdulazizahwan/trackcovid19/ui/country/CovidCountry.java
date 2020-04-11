@@ -4,9 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class CovidCountry implements Parcelable {
-    String mCovidCountry, mCases, mTodayCases, mDeaths, mTodayDeaths, mRecovered, mActive, mCritical, mFlags;
+    String mCovidCountry, mTodayCases, mDeaths, mTodayDeaths, mRecovered, mActive, mCritical, mFlags;
+    int mCases;
 
-    public CovidCountry(String mCovidCountry, String mCases, String mTodayCases, String mDeaths, String mTodayDeaths, String mRecovered, String mActive, String mCritical, String mFlags) {
+    public CovidCountry(String mCovidCountry, int mCases, String mTodayCases, String mDeaths, String mTodayDeaths, String mRecovered, String mActive, String mCritical, String mFlags) {
         this.mCovidCountry = mCovidCountry;
         this.mCases = mCases;
         this.mTodayCases = mTodayCases;
@@ -22,7 +23,7 @@ public class CovidCountry implements Parcelable {
         return mCovidCountry;
     }
 
-    public String getmCases() {
+    public int getmCases() {
         return mCases;
     }
 
@@ -63,7 +64,7 @@ public class CovidCountry implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.mCovidCountry);
-        dest.writeString(this.mCases);
+        dest.writeInt(this.mCases);
         dest.writeString(this.mTodayCases);
         dest.writeString(this.mDeaths);
         dest.writeString(this.mTodayDeaths);
@@ -75,7 +76,7 @@ public class CovidCountry implements Parcelable {
 
     protected CovidCountry(Parcel in) {
         this.mCovidCountry = in.readString();
-        this.mCases = in.readString();
+        this.mCases = in.readInt();
         this.mTodayCases = in.readString();
         this.mDeaths = in.readString();
         this.mTodayDeaths = in.readString();

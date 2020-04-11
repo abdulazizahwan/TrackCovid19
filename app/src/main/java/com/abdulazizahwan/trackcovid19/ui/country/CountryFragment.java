@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -32,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CountryFragment extends Fragment {
@@ -63,7 +65,7 @@ public class CountryFragment extends Fragment {
         covidCountries = new ArrayList<>();
 
         // call Volley method
-        getDataFromServer();
+        getDataFromServerSortTotalCases();
 
         return root;
     }
@@ -86,8 +88,8 @@ public class CountryFragment extends Fragment {
         startActivity(covidCovidCountryDetail);
     }
 
-    private void getDataFromServer() {
-        String url = "https://corona.lmao.ninja/countries";
+    private void getDataFromServerSortTotalCases() {
+        String url = "https://corona.lmao.ninja/v2/countries";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -104,17 +106,74 @@ public class CountryFragment extends Fragment {
                             JSONObject countryInfo = data.getJSONObject("countryInfo");
 
                             covidCountries.add(new CovidCountry(
-                                    data.getString("country"), data.getString("cases"),
+                                    data.getString("country"), data.getInt("cases"),
                                     data.getString("todayCases"), data.getString("deaths"),
                                     data.getString("todayDeaths"), data.getString("recovered"),
                                     data.getString("active"), data.getString("critical"),
                                     countryInfo.getString("flag")
                             ));
                         }
-//                        tvTotalCountry.setText(jsonArray.length()+" countries");
+
+                        // sort descending
+                        Collections.sort(covidCountries, new Comparator<CovidCountry>() {
+                            @Override
+                            public int compare(CovidCountry o1, CovidCountry o2) {
+                                if (o1.getmCases() > o2.getmCases()) {
+                                    return -1;
+                                } else {
+                                    return 1;
+                                }
+                            }
+                        });
 
                         // Action Bar Title
-                        getActivity().setTitle(jsonArray.length()+" countries");
+                        getActivity().setTitle(jsonArray.length() + " countries");
+
+                        showRecyclerView();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressBar.setVisibility(View.GONE);
+                        Log.e(TAG, "onResponse: " + error);
+                    }
+                });
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
+    }
+
+    private void getDataFromServerSortAlphabet() {
+        String url = "https://corona.lmao.ninja/v2/countries";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressBar.setVisibility(View.GONE);
+                if (response != null) {
+                    Log.e(TAG, "onResponse: " + response);
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject data = jsonArray.getJSONObject(i);
+
+                            // Extract JSONObject inside JSONObject
+                            JSONObject countryInfo = data.getJSONObject("countryInfo");
+
+                            covidCountries.add(new CovidCountry(
+                                    data.getString("country"), data.getInt("cases"),
+                                    data.getString("todayCases"), data.getString("deaths"),
+                                    data.getString("todayDeaths"), data.getString("recovered"),
+                                    data.getString("active"), data.getString("critical"),
+                                    countryInfo.getString("flag")
+                            ));
+                        }
+
+                        // Action Bar Title
+                        getActivity().setTitle(jsonArray.length() + " countries");
 
                         showRecyclerView();
                     } catch (JSONException e) {
@@ -135,7 +194,7 @@ public class CountryFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu, menu);
+        inflater.inflate(R.menu.country_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = new SearchView(getActivity());
         searchView.setQueryHint("Search...");
@@ -157,5 +216,25 @@ public class CountryFragment extends Fragment {
 
         searchItem.setActionView(searchView);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sort_alpha:
+                Toast.makeText(getContext(), "Sort Alphabetically", Toast.LENGTH_SHORT).show();
+                covidCountries.clear();
+                progressBar.setVisibility(View.VISIBLE);
+                getDataFromServerSortAlphabet();
+                return true;
+
+            case R.id.action_sort_cases:
+                Toast.makeText(getContext(), "Sort by Total Cases", Toast.LENGTH_SHORT).show();
+                covidCountries.clear();
+                progressBar.setVisibility(View.VISIBLE);
+                getDataFromServerSortTotalCases();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
